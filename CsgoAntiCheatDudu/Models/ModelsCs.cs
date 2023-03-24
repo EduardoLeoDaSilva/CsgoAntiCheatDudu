@@ -3,33 +3,7 @@
 namespace CsgoAntiCheatDudu.Models
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class Provider
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("appid")]
-        public int Appid { get; set; }
-
-        [JsonProperty("version")]
-        public int Version { get; set; }
-
-        [JsonProperty("steamid")]
-        public string Steamid { get; set; }
-
-        [JsonProperty("timestamp")]
-        public int Timestamp { get; set; }
-    }
-
-    public class Round
-    {
-        [JsonProperty("phase")]
-        public string Phase { get; set; }
-
-        [JsonProperty("bomb")]
-        public string Bomb { get; set; }
-    }
-
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class TeamCt
     {
         [JsonProperty("score")]
@@ -108,6 +82,59 @@ namespace CsgoAntiCheatDudu.Models
         public int Score { get; set; }
     }
 
+    public class State
+    {
+        [JsonProperty("health")]
+        public int Health { get; set; }
+
+        [JsonProperty("armor")]
+        public int Armor { get; set; }
+
+        [JsonProperty("helmet")]
+        public bool Helmet { get; set; }
+
+        [JsonProperty("flashed")]
+        public int Flashed { get; set; }
+
+        [JsonProperty("burning")]
+        public int Burning { get; set; }
+
+        [JsonProperty("money")]
+        public int Money { get; set; }
+
+        [JsonProperty("round_kills")]
+        public int RoundKills { get; set; }
+
+        [JsonProperty("round_killhs")]
+        public int RoundKillhs { get; set; }
+
+        [JsonProperty("round_totaldmg")]
+        public int RoundTotaldmg { get; set; }
+
+        [JsonProperty("equip_value")]
+        public int EquipValue { get; set; }
+    }
+
+    public class Weapons
+    {
+        [JsonProperty("weapon_0")]
+        public Weapon0 Weapon0 { get; set; }
+
+        [JsonProperty("weapon_1")]
+        public Weapon1 Weapon1 { get; set; }
+
+        [JsonProperty("weapon_2")]
+        public Weapon2 Weapon2 { get; set; }
+
+        [JsonProperty("weapon_3")]
+        public Weapon3 Weapon3 { get; set; }
+
+        [JsonProperty("weapon_4")]
+        public Weapon4 Weapon4 { get; set; }
+
+        [JsonProperty("weapon_5")]
+        public Weapon5 Weapon5 { get; set; }
+    }
     public class Weapon0
     {
         [JsonProperty("name")]
@@ -147,62 +174,89 @@ namespace CsgoAntiCheatDudu.Models
         public string State { get; set; }
     }
 
-    public class Weapons
+    public class Weapon2
     {
-        [JsonProperty("weapon_0")]
-        public Weapon0 Weapon0 { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
-        [JsonProperty("weapon_1")]
-        public Weapon1 Weapon1 { get; set; }
-    }
+        [JsonProperty("paintkit")]
+        public string Paintkit { get; set; }
 
-    public class State
-    {
-        [JsonProperty("health")]
-        public int Health { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
-        [JsonProperty("armor")]
-        public int Armor { get; set; }
+        [JsonProperty("ammo_clip")]
+        public int AmmoClip { get; set; }
 
-        [JsonProperty("helmet")]
-        public bool Helmet { get; set; }
+        [JsonProperty("ammo_clip_max")]
+        public int AmmoClipMax { get; set; }
 
-        [JsonProperty("flashed")]
-        public int Flashed { get; set; }
-
-        [JsonProperty("smoked")]
-        public int Smoked { get; set; }
-
-        [JsonProperty("burning")]
-        public int Burning { get; set; }
-
-        [JsonProperty("money")]
-        public int Money { get; set; }
-
-        [JsonProperty("round_kills")]
-        public int RoundKills { get; set; }
-
-        [JsonProperty("round_killhs")]
-        public int RoundKillhs { get; set; }
-
-        [JsonProperty("equip_value")]
-        public int EquipValue { get; set; }
-    }
-
-    public class Player
-    {
-        [JsonProperty("match_stats")]
-        public MatchStats MatchStats { get; set; }
-
-        [JsonProperty("weapons")]
-        public Weapons Weapons { get; set; }
+        [JsonProperty("ammo_reserve")]
+        public int AmmoReserve { get; set; }
 
         [JsonProperty("state")]
-        public State State { get; set; }
+        public string State { get; set; }
+    }
 
-        [JsonProperty("steamid")]
-        public string Steamid { get; set; }
 
+    public class Weapon3
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("paintkit")]
+        public string Paintkit { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("ammo_reserve")]
+        public int AmmoReserve { get; set; }
+
+        [JsonProperty("state")]
+        public string State { get; set; }
+    }
+
+
+    public class Weapon4
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("paintkit")]
+        public string Paintkit { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("ammo_reserve")]
+        public int AmmoReserve { get; set; }
+
+        [JsonProperty("state")]
+        public string State { get; set; }
+    }
+
+    public class Weapon5
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("paintkit")]
+        public string Paintkit { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("ammo_reserve")]
+        public int AmmoReserve { get; set; }
+
+        [JsonProperty("state")]
+        public string State { get; set; }
+    }
+
+    public class PlayerCs
+    {
+        public string SteamId { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -212,9 +266,22 @@ namespace CsgoAntiCheatDudu.Models
         [JsonProperty("team")]
         public string Team { get; set; }
 
-        [JsonProperty("activity")]
-        public string Activity { get; set; }
+        [JsonProperty("match_stats")]
+        public MatchStats MatchStats { get; set; }
+
+        [JsonProperty("position")]
+        public string Position { get; set; }
+
+        [JsonProperty("forward")]
+        public string Forward { get; set; }
+
+        [JsonProperty("state")]
+        public State State { get; set; }
+
+        [JsonProperty("weapons")]
+        public Weapons Weapons { get; set; }
     }
+
 
     public class Auth
     {
@@ -222,23 +289,15 @@ namespace CsgoAntiCheatDudu.Models
         public string Token { get; set; }
     }
 
-    public class BaseModel
+    public class Root
     {
-        [JsonProperty("provider")]
-        public Provider Provider { get; set; }
-
-        [JsonProperty("round")]
-        public Round Round { get; set; }
-
         [JsonProperty("map")]
         public Map Map { get; set; }
 
-        [JsonProperty("player")]
-        public Player Player { get; set; }
+        [JsonProperty("allplayers")]
+        public dynamic Allplayers { get; set; }
 
         [JsonProperty("auth")]
         public Auth Auth { get; set; }
     }
-
-
 }

@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
 using CsgoAntiCheatDudu.Utils;
+using Dropbox.Api;
 using Newtonsoft.Json;
 
 namespace CsgoAntiCheatDudu.Services
@@ -9,10 +11,12 @@ namespace CsgoAntiCheatDudu.Services
     {
 
         private readonly ImageHandler _imageHandler;
+        private readonly CacheService _cacheService;
 
-        public DropboxService()
+        public DropboxService(CacheService cacheService)
         {
             _imageHandler = new ImageHandler();
+            _cacheService = cacheService;
         }
 
         public async Task<DropbBoxResponseSave> SendImage(IFormFile image, string playerName)
@@ -30,7 +34,7 @@ namespace CsgoAntiCheatDudu.Services
             using (var _httpClient = new HttpClient())
             {
                 // request.Headers.Clear();
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "Qu-u5klpwxAAAAAAAAAAlFn8Naaep2p00TcallvtGpctJVeyL549OC386GVtm6YO");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _cacheService.TokenDropbox.Token);
                 request.Content = content;
                 request.Content.Headers.Add("Dropbox-API-Arg", JsonConvert.SerializeObject(dropBoxModel).ToLower());
                 request.Content.Headers.Remove("Content-type");
@@ -43,7 +47,7 @@ namespace CsgoAntiCheatDudu.Services
 
         public async Task<DropbBoxResponseSave> SendImage(byte[] image, string playerName, string mapName)
         {
-            var path = $"/cs/{DateTime.Now.ToString("yy-MM-dd")}/{playerName}/{mapName}/{Guid.NewGuid()}.jpg";
+            var path = $"/cs/{DateTime.Now.ToString("yy-MM-dd")}/{HttpUtility.UrlEncode(playerName)}/{mapName.Trim()}/{Guid.NewGuid()}.jpg";
 
 
 
@@ -56,7 +60,7 @@ namespace CsgoAntiCheatDudu.Services
             using (var _httpClient = new HttpClient())
             {
                 // request.Headers.Clear();
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "Qu-u5klpwxAAAAAAAAAAlFn8Naaep2p00TcallvtGpctJVeyL549OC386GVtm6YO");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _cacheService.TokenDropbox.Token) ;
                 request.Content = content;
                 request.Content.Headers.Add("Dropbox-API-Arg", JsonConvert.SerializeObject(dropBoxModel).ToLower());
                 request.Content.Headers.Remove("Content-type");
@@ -64,9 +68,25 @@ namespace CsgoAntiCheatDudu.Services
                 message = await _httpClient.SendAsync(request);
             }
             var responseJson = await message.Content.ReadAsStringAsync();
+
             return JsonConvert.DeserializeObject<DropbBoxResponseSave>(responseJson);
         }
 
+        static public string EncodeTo64(string toEncode)
+
+        {
+
+            byte[] toEncodeAsBytes
+
+                  = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+
+            string returnValue
+
+                  = System.Convert.ToBase64String(toEncodeAsBytes);
+
+            return returnValue;
+
+        }
 
         public async Task<string> DeleteForlderOrArq(string playerName)
         {
@@ -82,7 +102,7 @@ namespace CsgoAntiCheatDudu.Services
             using (var _httpClient = new HttpClient())
             {
                 // request.Headers.Clear();
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "Qu-u5klpwxAAAAAAAAAAlFn8Naaep2p00TcallvtGpctJVeyL549OC386GVtm6YO");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _cacheService.TokenDropbox.Token);
                 request.Content = content;
                 request.Content.Headers.Remove("Content-type");
                 message = await _httpClient.SendAsync(request);
@@ -105,7 +125,7 @@ namespace CsgoAntiCheatDudu.Services
             using (var _httpClient = new HttpClient())
             {
                 // request.Headers.Clear();
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "Qu-u5klpwxAAAAAAAAAAlFn8Naaep2p00TcallvtGpctJVeyL549OC386GVtm6YO");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "sl.BFm3udHoCAtx6LrV1A1JmOAhOraSM-zMqsd8borMozQZJcppnGPHTAKaBEojixW2CWSzgO9hDa1nl1Yde489UtoooHW4vXHgMOx3G0xh_geja-U7jaQdaY-kdOEMt7znBPirgrI");
                 request.Content = content;
                 request.Content.Headers.Remove("Content-type");
                 request.Content.Headers.Add("Content-type", "application/json");
@@ -130,7 +150,7 @@ namespace CsgoAntiCheatDudu.Services
             using (var _httpClient = new HttpClient())
             {
                 // request.Headers.Clear();
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "Qu-u5klpwxAAAAAAAAAAlFn8Naaep2p00TcallvtGpctJVeyL549OC386GVtm6YO");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _cacheService.TokenDropbox.Token);
                 request.Content = content;
                 request.Content.Headers.Remove("Content-type");
                 request.Content.Headers.Add("Content-type", "application/json");

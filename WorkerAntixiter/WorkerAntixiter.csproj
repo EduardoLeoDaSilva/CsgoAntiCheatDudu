@@ -1,15 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <ImplicitUsings>Enable</ImplicitUsings>
+    <Nullable>Enable</Nullable>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-preview.1.22076.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.0-preview.2.22153.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-preview.2.22153.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.0-preview.2.22153.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0-preview.2.22153.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0-preview.2.22153.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-preview.2.22152.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
@@ -17,12 +22,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
+	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
-namespace CsgoAntiCheatDudu.Utils
+namespace Common.Utils
 {
 
     /// <summary>
@@ -312,11 +313,35 @@ namespace CsgoAntiCheatDudu.Utils
 
                         contents = contents;
                         result = contents;
+                        var tt = result.Split(' ');
+                        var steamUsers =  Regex.Matches(result, "U:[0-9]{1}:[0-9]+");
+
+                        var steamTreateUser = steamUsers.Select(x => x.Value);
+                        return steamTreateUser.Last();
+
                     }
                 }
             }
             catch { }
+            return result;
 
+        }
+
+        public static Int64 TranslateSteamID(string steamID)
+        {
+            Int64 result = 0;
+
+            var template = new Regex(@"STEAM_(\d):([0-1]):(\d+)");
+            var matches = template.Matches(steamID);
+            if (matches.Count <= 0) return 0;
+            var parts = matches[0].Groups;
+            if (parts.Count != 4) return 0;
+
+            Int64 x = Int64.Parse(parts[1].Value) << 24;
+            Int64 y = Int64.Parse(parts[2].Value);
+            Int64 z = Int64.Parse(parts[3].Value) << 1;
+
+            result = ((1 + (1 << 20) + x) << 32) | (y + z);
             return result;
         }
     }
